@@ -10,9 +10,12 @@ RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC64107
 	echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list && \
 
 	apt-get update && \
-    apt-get install -y ca-certificates supervisor nginx=${NGINX_VERSION} && \
+    apt-get install -y ca-certificates supervisor nginx=${NGINX_VERSION} \
+    libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng12-dev && \
     rm -rf /var/lib/apt/lists/* && \
-
+    docker-php-ext-install -j$(nproc) iconv mcrypt && \
+	docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ && \
+    docker-php-ext-install -j$(nproc) gd && \
 	# forward request and error logs to docker log collector
 	ln -sf /dev/stdout /var/log/nginx/access.log && \
 	ln -sf /dev/stderr /var/log/nginx/error.log && \
