@@ -33,4 +33,4 @@ COPY supervisord.conf /etc/supervisord.conf
 
 ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
