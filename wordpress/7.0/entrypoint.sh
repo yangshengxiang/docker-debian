@@ -49,7 +49,7 @@ if [[ "$1" == *supervisord ]]; then
 			</IfModule>
 			# END WordPress
 EOF
-		chown nginx:www-data .htaccess
+		chown www-data:www-data .htaccess
 	fi
 
 	# TODO handle WordPress upgrades magically in the same way, but only if wp-includes/version.php's $wp_version is less than /usr/src/wordpress/wp-includes/version.php's $wp_version
@@ -68,7 +68,7 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROT
 }
 
 EOPHP
-		chown nginx:www-data wp-config.php
+		chown www-data:www-data wp-config.php
 	fi
 
 	# see http://stackoverflow.com/a/2705678/433558
