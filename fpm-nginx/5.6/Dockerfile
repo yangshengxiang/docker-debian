@@ -33,6 +33,7 @@ EXPOSE 80 443
 COPY nginx /etc/nginx
 COPY fpm /etc/php/fpm
 COPY supervisord.conf /etc/supervisord.conf
+COPY supervisor.d /etc/supervisor.d
 
 ENTRYPOINT ["/entrypoint.sh"]
 
