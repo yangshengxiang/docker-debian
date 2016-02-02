@@ -9,7 +9,7 @@ COPY entrypoint.sh /
 
 RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 && \
 	echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list && \
-	mkdir -p ${WWW_ROOT} && \
+	mkdir -p ${WWW_ROOT} && mkdir -p ${PHP_HOME} \
 	apt-get update && apt-get upgrade -y && \
     apt-get install -y ca-certificates supervisor libssl-dev nginx=${NGINX_VERSION} libkrb5-dev \
     libfreetype6-dev libjpeg62-turbo-dev libxml2-dev libmcrypt-dev libpng12-dev libc-client2007e-dev && \
@@ -31,7 +31,7 @@ WORKDIR ${WWW_ROOT}
 
 EXPOSE 80 443
 
-COPY php.ini ${PHP_HOME}
+COPY php.ini ${PHP_HOME}/php.ini
 COPY nginx /etc/nginx
 COPY fpm /etc/php/fpm
 COPY supervisord.conf /etc/supervisord.conf
